@@ -14,7 +14,7 @@
 	<name>encurtadorURL</name>
 	<description>encurtador de URL com SpringBoot</description>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>17</java.version>
 		<springdoc.version>2.3.0</springdoc.version>
 		<testcontainers.version>1.20.4</testcontainers.version>
 	</properties>
