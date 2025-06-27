@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?sslMode=REQUIRED&serverTimezone=America/Sao_Paulo
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+jackson:
+  time-zone: America/Sao_Paulo
+
+server:
+  port: ${SERVER_PORT}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, info, loggers, env
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  enabled: false
+
+info:
+  app:
+    name: Encurtador de URLs
+    description: Serviço para encurtar URLs
+    version: 1.0.0
+    author: Guilherme Brito Souza Santos
+    email: guilhermereal1911@gmail.com
+    github: https://github.com/guidev1911
+  environment:
+    name: produção
+    region: sa-east-1
+  database:
+    type: MySQL
+    version: 8.0.40
