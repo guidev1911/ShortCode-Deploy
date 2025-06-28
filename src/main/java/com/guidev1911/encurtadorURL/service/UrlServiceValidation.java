@@ -1,5 +1,6 @@
 package com.guidev1911.encurtadorURL.service;
 
+import com.guidev1911.encurtadorURL.exceptions.ShortCodeGenerationException;
 import com.guidev1911.encurtadorURL.repository.UrlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class UrlServiceValidation {
             code = generateRandomCode();
             attempts++;
             if (attempts > 10) {
-                throw new RuntimeException("Falha ao gerar um código curto único após várias tentativas.");
+                throw new ShortCodeGenerationException("Falha ao gerar um código curto único após várias tentativas.");
             }
         } while (repository.existsByShortCode(code));
         return code;

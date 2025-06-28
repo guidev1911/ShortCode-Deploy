@@ -1,7 +1,5 @@
 package com.guidev1911.encurtadorURL.dto;
 
-import java.time.LocalDateTime;
-
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
 
@@ -11,7 +9,7 @@ public class ApiErrorResponse {
     private int status;
     private String error;
 
-    public ApiErrorResponse(int status, String error) {
+    public ApiErrorResponse(int status, String error, ZonedDateTime now) {
         this.timestamp = ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"));
         this.status = status;
         this.error = error;

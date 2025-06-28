@@ -30,16 +30,12 @@ public class Url {
     public Url() {
     }
 
-    public Url(Long id, String originalUrl, String shortCode, ZonedDateTime createdAt, ZonedDateTime expirationDate, int clickCount) {
+    public Url(Long id, String originalUrl, String shortCode, ZonedDateTime createdAt, ZonedDateTime expirationDate) {
         this.id = id;
         this.originalUrl = originalUrl;
         this.shortCode = shortCode;
         this.createdAt = createdAt;
         this.expirationDate = expirationDate;
-        this.clickCount = clickCount;
-    }
-
-    public Url(Object o, String originalUrl, String shortCode, ZonedDateTime expirationDate, ZonedDateTime now) {
     }
 
     public Long getId() {
@@ -88,5 +84,18 @@ public class Url {
 
     public void setClickCount(int clickCount) {
         this.clickCount = clickCount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Url url = (Url) o;
+        return getClickCount() == url.getClickCount() && Objects.equals(getId(), url.getId()) && Objects.equals(getOriginalUrl(), url.getOriginalUrl()) && Objects.equals(getShortCode(), url.getShortCode()) && Objects.equals(getCreatedAt(), url.getCreatedAt()) && Objects.equals(getExpirationDate(), url.getExpirationDate());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getOriginalUrl(), getShortCode(), getCreatedAt(), getExpirationDate(), getClickCount());
     }
 }
