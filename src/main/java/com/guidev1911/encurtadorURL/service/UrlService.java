@@ -6,7 +6,8 @@ import com.guidev1911.encurtadorURL.repository.UrlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 
 @Service
@@ -18,8 +19,7 @@ public class UrlService {
     @Autowired
     private UrlServiceValidation validation;
 
-    public Url createShortUrl(String originalUrl, LocalDateTime expirationDate) {
-
+    public Url createShortUrl(String originalUrl, ZonedDateTime expirationDate) {
         if (originalUrl == null || originalUrl.isBlank()) {
             throw new IllegalArgumentException("A URL original não pode estar vazia.");
         }
@@ -28,7 +28,8 @@ public class UrlService {
             throw new IllegalArgumentException("A URL fornecida é inválida ou potencialmente maliciosa.");
         }
 
-        LocalDateTime now = LocalDateTime.now();
+        ZoneId zoneId = ZoneId.of("America/Sao_Paulo");
+        ZonedDateTime now = ZonedDateTime.now(zoneId);
 
         if (expirationDate == null) {
             expirationDate = now.plusDays(1);
@@ -40,15 +41,16 @@ public class UrlService {
 
         String shortCode = validation.generateUniqueShortCode();
 
-        LocalDateTime lctn = LocalDateTime.now();
-        Url url = new Url(null, originalUrl, shortCode, expirationDate, lctn);
+        Url url = new Url(null, originalUrl, shortCode, expirationDate, now);
         return repository.save(url);
     }
-
     @Transactional
     public String getOriginalUrl(String shortCode) {
+        ZoneId zoneId = ZoneId.of("America/Sao_Paulo");
+        ZonedDateTime now = ZonedDateTime.now(zoneId);
+
         Url url = repository.findByShortCode(shortCode)
-                .filter(u -> u.getExpirationDate().isAfter(LocalDateTime.now()))
+                .filter(u -> u.getExpirationDate().isAfter(now))
                 .orElseThrow(() -> new IllegalArgumentException("URL não encontrada ou expirada."));
 
         url.setClickCount(url.getClickCount() + 1);
@@ -56,6 +58,7 @@ public class UrlService {
 
         return url.getOriginalUrl();
     }
+
     public UrlResponse getUrlStats(String shortCode) {
         Url url = repository.findByShortCode(shortCode)
                 .orElseThrow(() -> new IllegalArgumentException("URL não encontrada."));

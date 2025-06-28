@@ -2,6 +2,7 @@ package com.guidev1911.encurtadorURL.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 @Entity
@@ -18,9 +19,10 @@ public class Url {
     private String shortCode;
 
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private ZonedDateTime createdAt;
+
     @Column(nullable = false)
-    private LocalDateTime expirationDate;
+    private ZonedDateTime expirationDate;
 
     @Column(nullable = false)
     private int clickCount;
@@ -28,12 +30,16 @@ public class Url {
     public Url() {
     }
 
-    public Url(Long id, String originalUrl, String shortCode, LocalDateTime expirationDate, LocalDateTime createdAt) {
+    public Url(Long id, String originalUrl, String shortCode, ZonedDateTime createdAt, ZonedDateTime expirationDate, int clickCount) {
         this.id = id;
         this.originalUrl = originalUrl;
         this.shortCode = shortCode;
-        this.expirationDate = expirationDate;
         this.createdAt = createdAt;
+        this.expirationDate = expirationDate;
+        this.clickCount = clickCount;
+    }
+
+    public Url(Object o, String originalUrl, String shortCode, ZonedDateTime expirationDate, ZonedDateTime now) {
     }
 
     public Long getId() {
@@ -60,19 +66,19 @@ public class Url {
         this.shortCode = shortCode;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getExpirationDate() {
+    public ZonedDateTime getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(LocalDateTime expirationDate) {
+    public void setExpirationDate(ZonedDateTime expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -82,18 +88,5 @@ public class Url {
 
     public void setClickCount(int clickCount) {
         this.clickCount = clickCount;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Url url = (Url) o;
-        return getClickCount() == url.getClickCount() && Objects.equals(getId(), url.getId()) && Objects.equals(getOriginalUrl(), url.getOriginalUrl()) && Objects.equals(getShortCode(), url.getShortCode()) && Objects.equals(getCreatedAt(), url.getCreatedAt()) && Objects.equals(getExpirationDate(), url.getExpirationDate());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getOriginalUrl(), getShortCode(), getCreatedAt(), getExpirationDate(), getClickCount());
     }
 }

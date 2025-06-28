@@ -1,11 +1,11 @@
 package com.guidev1911.encurtadorURL.dto;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
+import java.time.ZonedDateTime;
 
 public class UrlRequest {
     private String OriginalUrl;
-    private LocalDateTime expirationDate;
+    private ZonedDateTime  expirationDate;
 
     public String getOriginalUrl() {
         return OriginalUrl;
@@ -15,11 +15,11 @@ public class UrlRequest {
         OriginalUrl = originalUrl;
     }
 
-    public LocalDateTime getExpirationDate() {
+    public ZonedDateTime getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(LocalDateTime expirationDate) {
+    public void setExpirationDate(ZonedDateTime  expirationDate) {
         this.expirationDate = expirationDate;
     }
 }
