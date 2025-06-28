@@ -47,6 +47,11 @@ public class UrlService {
     }
     @Transactional
     public String getOriginalUrl(String shortCode) {
+
+        if (shortCode == null || shortCode.isBlank()) {
+            throw new EmptyUrlException("A URL encurtada não pode estar vazia.");
+        }
+
         ZoneId zoneId = ZoneId.of("America/Sao_Paulo");
         ZonedDateTime now = ZonedDateTime.now(zoneId);
 

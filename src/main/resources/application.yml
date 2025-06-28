@@ -13,10 +13,10 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
 
-  jackson:
-    time-zone: America/Sao_Paulo
-    serialization:
-      write-dates-as-timestamps: false
+    jackson:
+      time-zone: America/Sao_Paulo
+      serialization:
+        write-dates-as-timestamps: false
 
 server:
   port: ${SERVER_PORT}
