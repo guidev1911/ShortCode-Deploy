@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-
 @Service
 public class UrlService {
 
@@ -45,9 +44,9 @@ public class UrlService {
         Url url = new Url(null, originalUrl, shortCode, now, expirationDate);
         return repository.save(url);
     }
+
     @Transactional
     public String getOriginalUrl(String shortCode) {
-
         if (shortCode == null || shortCode.isBlank()) {
             throw new EmptyUrlException("A URL encurtada não pode estar vazia.");
         }
@@ -66,6 +65,10 @@ public class UrlService {
     }
 
     public UrlResponse getUrlStats(String shortCode) {
+        if (shortCode == null || shortCode.isBlank()) {
+            throw new EmptyUrlException("O código da URL não pode estar vazio.");
+        }
+
         Url url = repository.findByShortCode(shortCode)
                 .orElseThrow(() -> new UrlNotFoundException("URL não encontrada."));
 

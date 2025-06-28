@@ -13,6 +13,9 @@ public class UrlResponse {
     private ZonedDateTime createdAt;
     private ZonedDateTime expirationDate;
 
+    public UrlResponse() {
+    }
+
     public UrlResponse(String shortCode, String originalUrl, int clickCount, ZonedDateTime createdAt, ZonedDateTime expirationDate) {
         this.shortCode = shortCode;
         this.originalUrl = originalUrl;
