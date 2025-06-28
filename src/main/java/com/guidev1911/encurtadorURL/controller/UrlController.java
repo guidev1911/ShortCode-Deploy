@@ -29,7 +29,7 @@ public class UrlController implements UrlControllerDocs {
         Url url = service.createShortUrl(request.getOriginalUrl(), request.getExpirationDate());
 
         Map<String, String> response = new HashMap<>();
-        response.put("shortCode", "localhost:8080/"+url.getShortCode());
+        response.put("shortCode", "scd-gowv.onrender.com/"+url.getShortCode());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
