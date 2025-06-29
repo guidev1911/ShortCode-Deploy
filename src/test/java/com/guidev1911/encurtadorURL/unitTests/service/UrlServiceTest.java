@@ -129,6 +129,7 @@ class UrlServiceTest {
         UrlNotFoundException e = assertThrows(UrlNotFoundException.class, () -> service.getOriginalUrl(shortCode));
         assertEquals("URL não encontrada ou expirada.", e.getMessage());
 
+        // Também testar filtro de expiração
         Url expirada = new Url(1L, ORIGINAL_URL, shortCode, now.minusDays(10), now.minusDays(1));
         when(repository.findByShortCode(shortCode)).thenReturn(Optional.of(expirada));
 
