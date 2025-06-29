@@ -3,6 +3,7 @@ package com.guidev1911.encurtadorURL.controller;
 import com.guidev1911.encurtadorURL.controller.swagger.UrlControllerDocs;
 import com.guidev1911.encurtadorURL.dto.UrlRequest;
 import com.guidev1911.encurtadorURL.dto.UrlResponse;
+import com.guidev1911.encurtadorURL.exceptions.UrlNotFoundException;
 import com.guidev1911.encurtadorURL.model.Url;
 import com.guidev1911.encurtadorURL.service.UrlService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -42,7 +43,7 @@ public class UrlController implements UrlControllerDocs {
             return ResponseEntity.status(HttpStatus.FOUND)
                     .location(URI.create(originalUrl))
                     .build();
-        } catch (IllegalArgumentException e) {
+        } catch (UrlNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(e.getMessage());
         }
@@ -54,7 +55,7 @@ public class UrlController implements UrlControllerDocs {
         try {
             UrlResponse response = service.getUrlStats(shortCode);
             return ResponseEntity.ok(response);
-        } catch (IllegalArgumentException e) {
+        } catch (UrlNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
