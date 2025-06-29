@@ -18,10 +18,10 @@ public class Url {
     @Column(nullable = false, unique = true, length = 10)
     private String shortCode;
 
-    @Column(nullable = false)
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP", nullable = false)
     private ZonedDateTime createdAt;
 
-    @Column(nullable = false)
+    @Column(name = "expiration_date", columnDefinition = "TIMESTAMP", nullable = false)
     private ZonedDateTime expirationDate;
 
     @Column(nullable = false)

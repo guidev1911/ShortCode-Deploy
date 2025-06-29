@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?sslMode=REQUIRED&serverTimezone=America/Sao_Paulo
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?sslMode=REQUIRED&serverTimezone=UTC
     username: ${DB_USER}
     password: ${DB_PASS}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -12,11 +12,13 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+        jdbc:
+          time_zone: UTC
 
-    jackson:
-      time-zone: America/Sao_Paulo
-      serialization:
-        write-dates-as-timestamps: false
+  jackson:
+    time-zone: UTC
+    serialization:
+      write-dates-as-timestamps: false
 
 server:
   port: ${SERVER_PORT}

@@ -1,6 +1,7 @@
 package com.guidev1911.encurtadorURL.unitTests.service;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import com.guidev1911.encurtadorURL.dto.UrlResponse;
 import com.guidev1911.encurtadorURL.model.Url;
 import com.guidev1911.encurtadorURL.repository.UrlRepository;
@@ -28,7 +29,7 @@ class UrlServiceTest {
     @Mock
     private UrlServiceValidation validation;
 
-    private final ZoneId zoneId = ZoneId.of("America/Sao_Paulo");
+    private final ZoneId zoneId = ZoneId.of("UTC");
 
     private final String ORIGINAL_URL = "https://exemplo.com";
 

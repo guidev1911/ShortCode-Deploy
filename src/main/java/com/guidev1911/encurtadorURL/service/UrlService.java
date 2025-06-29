@@ -28,8 +28,7 @@ public class UrlService {
             throw new InvalidUrlFormatException("A URL fornecida é inválida ou potencialmente maliciosa.");
         }
 
-        ZoneId zoneId = ZoneId.of("America/Sao_Paulo");
-        ZonedDateTime now = ZonedDateTime.now(zoneId);
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("UTC"));
 
         if (expirationDate == null) {
             expirationDate = now.plusDays(1);
@@ -51,8 +50,7 @@ public class UrlService {
             throw new EmptyUrlException("A URL encurtada não pode estar vazia.");
         }
 
-        ZoneId zoneId = ZoneId.of("America/Sao_Paulo");
-        ZonedDateTime now = ZonedDateTime.now(zoneId);
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("UTC"));
 
         Url url = repository.findByShortCode(shortCode)
                 .filter(u -> u.getExpirationDate().isAfter(now))
