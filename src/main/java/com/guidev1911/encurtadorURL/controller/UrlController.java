@@ -40,7 +40,7 @@ public class UrlController implements UrlControllerDocs {
 
     @GetMapping("/{shortCode}")
     @Override
-    public ResponseEntity<?> redirect(@PathVariable @NotBlank  String shortCode) {
+    public ResponseEntity<?> redirect(@PathVariable @NotBlank(message = "URL não pode estar vazia")  String shortCode) {
             String originalUrl = service.getOriginalUrl(shortCode);
             return ResponseEntity.status(HttpStatus.FOUND)
                     .location(URI.create(originalUrl))
@@ -49,7 +49,7 @@ public class UrlController implements UrlControllerDocs {
 
     @GetMapping("/stats/{shortCode}")
     @Override
-    public ResponseEntity<?> getStats(@PathVariable @NotBlank String shortCode) {
+    public ResponseEntity<?> getStats(@PathVariable @NotBlank(message = "URL encurtada está vazia") String shortCode) {
             UrlResponse response = service.getUrlStats(shortCode);
             return ResponseEntity.ok(response);
     }

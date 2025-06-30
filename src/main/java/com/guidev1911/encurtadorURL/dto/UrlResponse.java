@@ -8,9 +8,7 @@ import java.time.ZonedDateTime;
 
 
 public class UrlResponse {
-    @NotBlank(message = "A URL encurtada não pode estar vazia.")
     private String shortCode;
-    @NotBlank(message = "A URL original não pode estar vazia.")
     private String originalUrl;
     private int clickCount;
     private ZonedDateTime createdAt;

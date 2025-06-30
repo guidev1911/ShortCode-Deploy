@@ -9,10 +9,15 @@ public class ApiErrorResponse {
     private int status;
     private String message;
 
-    public ApiErrorResponse(int status, String message, ZonedDateTime now) {
-        this.timestamp = ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"));
+    public ApiErrorResponse(int status, String message) {
         this.status = status;
         this.message = message;
+        this.timestamp = ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"));
+    }
+    public ApiErrorResponse(int status, String message, ZonedDateTime timestamp) {
+        this.status = status;
+        this.message = message;
+        this.timestamp = timestamp;
     }
 
     public ZonedDateTime getTimestamp() {
