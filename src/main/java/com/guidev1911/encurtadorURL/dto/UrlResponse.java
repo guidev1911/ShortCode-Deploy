@@ -1,6 +1,7 @@
 package com.guidev1911.encurtadorURL.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
@@ -8,6 +9,7 @@ import java.time.ZonedDateTime;
 
 public class UrlResponse {
     private String shortCode;
+    @NotBlank(message = "A URL original não pode estar vazia.")
     private String originalUrl;
     private int clickCount;
     private ZonedDateTime createdAt;
