@@ -56,15 +56,6 @@ class UrlServiceTest {
     }
 
     @Test
-    void deveLancarEmptyUrlExceptionQuandoUrlForNulaOuVazia() {
-        EmptyUrlException e1 = assertThrows(EmptyUrlException.class, () -> service.createShortUrl(null, null));
-        assertEquals("A URL original não pode estar vazia.", e1.getMessage());
-
-        EmptyUrlException e2 = assertThrows(EmptyUrlException.class, () -> service.createShortUrl("   ", null));
-        assertEquals("A URL original não pode estar vazia.", e2.getMessage());
-    }
-
-    @Test
     void deveLancarInvalidUrlFormatExceptionQuandoUrlForInvalida() {
         when(validation.isValidUrl(ORIGINAL_URL)).thenReturn(false);
 
@@ -111,15 +102,6 @@ class UrlServiceTest {
     }
 
     @Test
-    void deveLancarEmptyUrlExceptionQuandoShortCodeParaGetOriginalUrlForNuloOuVazio() {
-        EmptyUrlException e1 = assertThrows(EmptyUrlException.class, () -> service.getOriginalUrl(null));
-        assertEquals("A URL encurtada não pode estar vazia.", e1.getMessage());
-
-        EmptyUrlException e2 = assertThrows(EmptyUrlException.class, () -> service.getOriginalUrl(" "));
-        assertEquals("A URL encurtada não pode estar vazia.", e2.getMessage());
-    }
-
-    @Test
     void deveLancarUrlNotFoundExceptionSeUrlNaoExistirOuExpirada() {
         String shortCode = "invalido";
         ZonedDateTime now = ZonedDateTime.now(zoneId);
@@ -129,7 +111,6 @@ class UrlServiceTest {
         UrlNotFoundException e = assertThrows(UrlNotFoundException.class, () -> service.getOriginalUrl(shortCode));
         assertEquals("URL não encontrada ou expirada.", e.getMessage());
 
-        // Também testar filtro de expiração
         Url expirada = new Url(1L, ORIGINAL_URL, shortCode, now.minusDays(10), now.minusDays(1));
         when(repository.findByShortCode(shortCode)).thenReturn(Optional.of(expirada));
 
@@ -154,15 +135,6 @@ class UrlServiceTest {
         assertEquals(5, response.getClickCount());
         assertEquals(url.getCreatedAt(), response.getCreatedAt());
         assertEquals(url.getExpirationDate(), response.getExpirationDate());
-    }
-
-    @Test
-    void deveLancarEmptyUrlExceptionQuandoShortCodeParaGetUrlStatsForNuloOuVazio() {
-        EmptyUrlException e1 = assertThrows(EmptyUrlException.class, () -> service.getUrlStats(null));
-        assertEquals("O código da URL não pode estar vazio.", e1.getMessage());
-
-        EmptyUrlException e2 = assertThrows(EmptyUrlException.class, () -> service.getUrlStats(" "));
-        assertEquals("O código da URL não pode estar vazio.", e2.getMessage());
     }
 
     @Test

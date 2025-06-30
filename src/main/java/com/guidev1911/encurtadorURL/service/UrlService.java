@@ -20,9 +20,6 @@ public class UrlService {
     private UrlServiceValidation validation;
 
     public Url createShortUrl(String originalUrl, ZonedDateTime expirationDate) {
-        if (originalUrl == null || originalUrl.isBlank()) {
-            throw new EmptyUrlException("A URL original não pode estar vazia.");
-        }
 
         if (!validation.isValidUrl(originalUrl)) {
             throw new InvalidUrlFormatException("A URL fornecida é inválida ou potencialmente maliciosa.");
@@ -46,9 +43,6 @@ public class UrlService {
 
     @Transactional
     public String getOriginalUrl(String shortCode) {
-        if (shortCode == null || shortCode.isBlank()) {
-            throw new EmptyUrlException("A URL encurtada não pode estar vazia.");
-        }
 
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("UTC"));
 
@@ -63,9 +57,6 @@ public class UrlService {
     }
 
     public UrlResponse getUrlStats(String shortCode) {
-        if (shortCode == null || shortCode.isBlank()) {
-            throw new EmptyUrlException("O código da URL não pode estar vazio.");
-        }
 
         Url url = repository.findByShortCode(shortCode)
                 .orElseThrow(() -> new UrlNotFoundException("URL não encontrada."));

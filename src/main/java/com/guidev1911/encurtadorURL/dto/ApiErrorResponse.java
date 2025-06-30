@@ -7,12 +7,12 @@ public class ApiErrorResponse {
 
     private ZonedDateTime timestamp;
     private int status;
-    private String error;
+    private String message;
 
-    public ApiErrorResponse(int status, String error, ZonedDateTime now) {
+    public ApiErrorResponse(int status, String message, ZonedDateTime now) {
         this.timestamp = ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"));
         this.status = status;
-        this.error = error;
+        this.message = message;
     }
 
     public ZonedDateTime getTimestamp() {
@@ -23,7 +23,7 @@ public class ApiErrorResponse {
         return status;
     }
 
-    public String getError() {
-        return error;
+    public String getMessage() {
+        return message;
     }
 }
