@@ -44,6 +44,16 @@ public class GlobalExceptionHandler {
                 ZonedDateTime.now());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(EmptyUrlException.class)
+    public ResponseEntity<ApiErrorResponse> handleEmptyUrlException(EmptyUrlException ex) {
+        ApiErrorResponse error = new ApiErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage()
+        );
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(UrlNotFoundException.class)
     public ResponseEntity<ApiErrorResponse> handleUrlNotFoundException(UrlNotFoundException ex) {
         ApiErrorResponse error = new ApiErrorResponse(

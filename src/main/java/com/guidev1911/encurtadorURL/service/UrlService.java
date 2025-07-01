@@ -43,6 +43,9 @@ public class UrlService {
 
     @Transactional
     public String getOriginalUrl(String shortCode) {
+        if (shortCode == null || shortCode.isBlank()) {
+            throw new EmptyUrlException("URL encurtada vazia");
+        }
 
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("UTC"));
 
@@ -57,6 +60,9 @@ public class UrlService {
     }
 
     public UrlResponse getUrlStats(String shortCode) {
+        if (shortCode == null || shortCode.isBlank()) {
+            throw new EmptyUrlException("URL encurtada vazia");
+        }
 
         Url url = repository.findByShortCode(shortCode)
                 .orElseThrow(() -> new UrlNotFoundException("URL não encontrada."));
