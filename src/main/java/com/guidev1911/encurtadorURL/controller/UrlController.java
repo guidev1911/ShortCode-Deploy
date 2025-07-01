@@ -7,7 +7,6 @@ import com.guidev1911.encurtadorURL.model.Url;
 import com.guidev1911.encurtadorURL.service.UrlService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -29,8 +29,6 @@ public class UrlService {
 
         if (expirationDate == null) {
             expirationDate = now.plusDays(1);
-        } else if (expirationDate.isBefore(now)) {
-            throw new ExpirationDateInPastException("A data de expiração não pode estar no passado.");
         } else if (expirationDate.isAfter(now.plusDays(7))) {
             throw new ExpirationDateExceedsLimitException("A data de expiração não pode exceder 7 dias.");
         }
@@ -43,9 +41,6 @@ public class UrlService {
 
     @Transactional
     public String getOriginalUrl(String shortCode) {
-        if (shortCode == null || shortCode.isBlank()) {
-            throw new EmptyUrlException("URL encurtada vazia");
-        }
 
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("UTC"));
 
@@ -60,9 +55,6 @@ public class UrlService {
     }
 
     public UrlResponse getUrlStats(String shortCode) {
-        if (shortCode == null || shortCode.isBlank()) {
-            throw new EmptyUrlException("URL encurtada vazia");
-        }
 
         Url url = repository.findByShortCode(shortCode)
                 .orElseThrow(() -> new UrlNotFoundException("URL não encontrada."));

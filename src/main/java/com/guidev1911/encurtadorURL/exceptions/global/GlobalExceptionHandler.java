@@ -45,15 +45,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(EmptyUrlException.class)
-    public ResponseEntity<ApiErrorResponse> handleEmptyUrlException(EmptyUrlException ex) {
-        ApiErrorResponse error = new ApiErrorResponse(
-                HttpStatus.BAD_REQUEST.value(),
-                ex.getMessage()
-        );
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-    }
-
     @ExceptionHandler(UrlNotFoundException.class)
     public ResponseEntity<ApiErrorResponse> handleUrlNotFoundException(UrlNotFoundException ex) {
         ApiErrorResponse error = new ApiErrorResponse(
@@ -72,11 +63,6 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
-    @ExceptionHandler(ExpirationDateInPastException.class)
-    public ResponseEntity<ApiErrorResponse> handlePast(ExpirationDateInPastException ex) {
-        return buildResponse(HttpStatus.BAD_REQUEST, ex);
-    }
-
     @ExceptionHandler(ExpirationDateExceedsLimitException.class)
     public ResponseEntity<ApiErrorResponse> handleLimit(ExpirationDateExceedsLimitException ex) {
         return buildResponse(HttpStatus.BAD_REQUEST, ex);

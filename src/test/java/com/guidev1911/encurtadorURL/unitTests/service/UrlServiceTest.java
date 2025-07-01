@@ -64,16 +64,6 @@ class UrlServiceTest {
     }
 
     @Test
-    void deveLancarExpirationDateInPastExceptionQuandoDataExpirada() {
-        when(validation.isValidUrl(ORIGINAL_URL)).thenReturn(true);
-        ZonedDateTime passada = ZonedDateTime.now(zoneId).minusDays(1);
-
-        ExpirationDateInPastException e = assertThrows(ExpirationDateInPastException.class,
-                () -> service.createShortUrl(ORIGINAL_URL, passada));
-        assertEquals("A data de expiração não pode estar no passado.", e.getMessage());
-    }
-
-    @Test
     void deveLancarExpirationDateExceedsLimitExceptionQuandoDataMuitoFutura() {
         when(validation.isValidUrl(ORIGINAL_URL)).thenReturn(true);
         ZonedDateTime muitoFutura = ZonedDateTime.now(zoneId).plusDays(8);
